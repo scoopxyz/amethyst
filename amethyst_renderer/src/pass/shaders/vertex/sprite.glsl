@@ -41,11 +41,10 @@ vec2 texture_coords(vec2 coords, vec2 u, vec2 v) {
 }
 
 void main() {
-    float tex_u = positions[gl_VertexID][0];
-    float tex_v = positions[gl_VertexID][1];
+    float tex_uv = positions[gl_VertexID];
 
-    vec2 uv = pos + tex_u * dir_x + tex_v * dir_y;
-    vertex.tex_uv = texture_coords(vec2(tex_u, tex_v), u_offset, v_offset);
+    vec2 uv = pos + tex_uv.x * dir_x + tex_uv.y * dir_y;
+    vertex.tex_uv = texture_coords(tex_uv, u_offset, v_offset);
     vertex.color = color;
     vec4 vertex = vec4(uv, depth, 1.0);
     gl_Position = proj * view * vertex;
